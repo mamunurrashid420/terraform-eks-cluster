@@ -1,16 +1,16 @@
 output "cluster_id" {
-  value = aws_eks_cluster.awsclass.id
+  value = aws_eks_cluster.aws-prac.id
 }
 
 output "node_group_id" {
-  value = aws_eks_node_group.awsclass.id
+  value = aws_eks_node_group.aws-prac.id
 }
 
 output "vpc_id" {
-  value = aws_vpc.awsclass_vpc.id
+  value = aws_vpc.aws-prac_vpc.id
 }
 
 output "subnet_ids" {
-  value = aws_subnet.awsclass_subnet[*].id
+  value = aws_subnet.aws-prac_subnet[*].id
 }
 
