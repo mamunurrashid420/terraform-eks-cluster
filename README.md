@@ -9,7 +9,7 @@ This Terraform project creates an Amazon EKS cluster in the `us-east-1` AWS regi
 - **Node group:** `awsclass-node-group`
 - **Node instance type:** `t2.medium`
 - **Desired, minimum, and maximum nodes:** `3`
-- **SSH key pair:** `awsclassekskey` by default
+- **SSH key pair:** supplied through `ssh_key_name`
 
 ## Prerequisites
 
@@ -73,7 +73,11 @@ To use a different EC2 key pair:
 terraform apply -var='ssh_key_name=<your-existing-key-pair>'
 ```
 
-The key pair must already exist in `us-east-1`.
+The key pair must already exist in `us-east-1`. Check available key pairs with:
+
+```bash
+aws ec2 describe-key-pairs --region us-east-1 --query 'KeyPairs[].KeyName' --output table
+```
 
 ## 3. Update kubeconfig
 

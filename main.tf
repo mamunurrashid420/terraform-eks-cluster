@@ -11,7 +11,7 @@ resource "aws_vpc" "awsclass_vpc" {
 }
 
 resource "aws_subnet" "awsclass_subnet" {
-  count = 2
+  count                   = 2
   vpc_id                  = aws_vpc.awsclass_vpc.id
   cidr_block              = cidrsubnet(aws_vpc.awsclass_vpc.cidr_block, 8, count.index)
   availability_zone       = element(["us-east-1a", "us-east-1b"], count.index)
@@ -98,11 +98,13 @@ resource "aws_eks_cluster" "awsclass" {
 
 
 resource "aws_eks_addon" "ebs_csi_driver" {
-  cluster_name    = aws_eks_cluster.awsclass.name
-  addon_name      = "aws-ebs-csi-driver"
-  
+  cluster_name = aws_eks_cluster.awsclass.name
+  addon_name   = "aws-ebs-csi-driver"
+
   resolve_conflicts_on_create = "OVERWRITE"
   resolve_conflicts_on_update = "OVERWRITE"
+
+  depends_on = [aws_eks_node_group.awsclass]
 }
 
 
@@ -121,7 +123,7 @@ resource "aws_eks_node_group" "awsclass" {
   instance_types = ["t2.medium"]
 
   remote_access {
-    ec2_ssh_key = var.ssh_key_name
+    ec2_ssh_key               = var.ssh_key_name
     source_security_group_ids = [aws_security_group.awsclass_node_sg.id]
   }
 }
