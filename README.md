@@ -5,8 +5,8 @@ This Terraform project creates an Amazon EKS cluster in the `us-east-1` AWS regi
 ## Project Details
 
 - **AWS region:** `us-east-1`
-- **EKS cluster:** `aws-prac-cluster`
-- **Node group:** `aws-prac-node-group`
+- **EKS cluster:** `awsclass-cluster`
+- **Node group:** `awsclass-node-group`
 - **Node instance type:** `t2.medium`
 - **Desired, minimum, and maximum nodes:** `3`
 - **SSH key pair:** supplied through `ssh_key_name`
@@ -87,7 +87,7 @@ aws ec2 describe-key-pairs --region us-east-1 --query 'KeyPairs[].KeyName' --out
 After Terraform completes, configure `kubectl` to access the cluster:
 
 ```bash
-aws eks --region us-east-1 update-kubeconfig --name aws-prac-cluster
+aws eks --region us-east-1 update-kubeconfig --name awsclass-cluster
 ```
 
 Confirm that the current context points to the expected cluster:
@@ -123,7 +123,7 @@ Associate an IAM OIDC provider with the EKS cluster to enable IAM roles for Kube
 ```bash
 eksctl utils associate-iam-oidc-provider \
   --region us-east-1 \
-  --cluster aws-prac-cluster \
+  --cluster awsclass-cluster \
   --approve
 ```
 
@@ -136,7 +136,7 @@ eksctl create iamserviceaccount \
   --region us-east-1 \
   --name ebs-csi-controller-sa \
   --namespace kube-system \
-  --cluster aws-prac-cluster \
+  --cluster awsclass-cluster \
   --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
   --approve \
   --override-existing-serviceaccounts
@@ -157,7 +157,7 @@ Wait for the add-on to become active:
 ```bash
 aws eks describe-addon \
   --region us-east-1 \
-  --cluster-name aws-prac-cluster \
+  --cluster-name awsclass-cluster \
   --addon-name aws-ebs-csi-driver \
   --query 'addon.status'
 ```
