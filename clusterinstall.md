@@ -1,10 +1,4 @@
-## AWS cli Install 
-```
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-sudo apt install unzip
-unzip awscliv2.zip
-sudo ./aws/install
-```
+
 ## Terraform 
 ```
 # Install Terraform
@@ -17,6 +11,13 @@ echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://
 sudo apt-get update && sudo apt-get install terraform -y
 
 terraform -version
+```
+## AWS cli Install 
+```
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo apt install unzip
+unzip awscliv2.zip
+sudo ./aws/install
 ```
 ## EKSCTL Install 
 ```
